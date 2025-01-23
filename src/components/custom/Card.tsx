@@ -37,7 +37,6 @@ const Card = ({
 
   return (
     <Link
-      prefetch={false}
       href={url}
       // onClick={(e) => {
       //   if (post.isPublished) {

@@ -56,47 +56,47 @@ export const getPosts = cache(
   }
 );
 
-export const getPostBySlug = async (
-  slug: string
-): Promise<PostWithCategoriesAndUserEssence | null> => {
-  try {
-    const url = new URL(`/api/getPosts/${slug}`, process.env.NEXTAUTH_URL);
+export const getPostBySlug = cache(
+  async (slug: string): Promise<PostWithCategoriesAndUserEssence | null> => {
+    try {
+      const url = new URL(`/api/getPosts/${slug}`, process.env.NEXTAUTH_URL);
 
-    const res = await fetch(url, {
-      cache: "no-store", // Important for dynamic content
-      headers: { "x-api-key": process.env.API_SECRET_KEY! },
-    });
+      const res = await fetch(url, {
+        cache: "no-store", // Important for dynamic content
+        headers: { "x-api-key": process.env.API_SECRET_KEY! },
+      });
 
-    if (!res.ok) {
-      const errorText = await res.text();
-      const errorMessage = `Failed to fetch post: ${res.status} - ${
-        errorText || res.statusText
-      }`;
-      console.error(errorMessage);
+      if (!res.ok) {
+        const errorText = await res.text();
+        const errorMessage = `Failed to fetch post: ${res.status} - ${
+          errorText || res.statusText
+        }`;
+        console.error(errorMessage);
 
-      if (res.status === 404) {
-        // Specifically handle 404
-        console.warn("Post not found.");
-        return null;
+        if (res.status === 404) {
+          // Specifically handle 404
+          console.warn("Post not found.");
+          return null;
+        }
+
+        throw new Error(errorMessage);
       }
 
-      throw new Error(errorMessage);
-    }
+      return res.json() as Promise<PostWithCategoriesAndUserEssence>;
+    } catch (error: any) {
+      if (
+        error instanceof Error &&
+        "digest" in error &&
+        error.digest === "DYNAMIC_SERVER_USAGE"
+      ) {
+        throw error;
+      }
 
-    return res.json() as Promise<PostWithCategoriesAndUserEssence>;
-  } catch (error: any) {
-    if (
-      error instanceof Error &&
-      "digest" in error &&
-      error.digest === "DYNAMIC_SERVER_USAGE"
-    ) {
-      throw error;
+      console.error("Error fetching or parsing post data:", error.message);
+      throw new Error("Failed to fetch or process post data.");
     }
-
-    console.error("Error fetching or parsing post data:", error.message);
-    throw new Error("Failed to fetch or process post data.");
   }
-};
+);
 
 // http://localhost:3000/posts/679103e067b30f7f11dd4145/edit
 
