@@ -28,7 +28,7 @@ const NavBar = () => {
               loading="lazy"
               className="rounded-xl"
             />
-            <div className="max-sm:hidden">KooBlog</div>
+            <div className="max-sm:hidden">Echo</div>
           </Link>
 
           <div className="flex flex-row gap-2 w-max items-center justify-end text-xl">

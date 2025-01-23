@@ -2,7 +2,7 @@ import { getPostBySlug } from "@/services/postService";
 import { ImageResponse } from "next/og";
 import { NextResponse } from "next/server";
 
-export const alt = "Koo Blog";
+export const alt = "Echo Blog";
 export const size = {
   width: 1200,
   height: 628,

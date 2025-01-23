@@ -17,11 +17,11 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: {
-    default: "Koo Blog | 軟件工程部落格",
-    template: "%s - Koo Blog | 軟件工程部落格",
+    default: "Echo | 軟件工程部落格",
+    template: "%s - Echo | 軟件工程部落格",
   },
   description:
-    "Welcome to Koo Blog, your go-to source for insights and discussions on software engineering, development practices, and industry trends.",
+    "Welcome to Echo, your go-to source for insights and discussions on software engineering, development practices, and industry trends.",
   twitter: {
     card: "summary_large_image",
   },
