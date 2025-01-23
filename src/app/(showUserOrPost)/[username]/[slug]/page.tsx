@@ -29,7 +29,7 @@ export async function generateMetadata({
   const { slug } = params;
   const post = await getPostBySlug(slug);
 
-  console.log("generateMetadata got the post");
+  // console.log("generateMetadata got the post");
 
   if (!post) return {};
 

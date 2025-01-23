@@ -14,8 +14,6 @@ export const GET = async (
 
   const slug = params.slug;
 
-  revalidatePath(`/@username/${slug}`);
-
   try {
     const post = await prisma.post.update({
       where: { slug },

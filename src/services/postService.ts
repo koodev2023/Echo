@@ -63,7 +63,7 @@ export const getPostBySlug = async (
     const url = new URL(`/api/getPosts/${slug}`, process.env.NEXTAUTH_URL);
 
     const res = await fetch(url, {
-      // cache: "no-store", // Important for dynamic content
+      cache: "no-store", // Important for dynamic content
       headers: { "x-api-key": process.env.API_SECRET_KEY! },
     });
 
