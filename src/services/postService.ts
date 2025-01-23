@@ -58,30 +58,44 @@ export const getPosts = cache(
 export const getPostBySlug = cache(
   async (slug: string): Promise<PostWithCategoriesAndUserEssence | null> => {
     try {
-      const url = new URL(`/api/getPosts/${slug}`, process.env.NEXTAUTH_URL);
+      const postUrl = `${process.env.NEXTAUTH_URL}/api/getPosts/${slug}`;
+      const viewUrl = `${process.env.NEXTAUTH_URL}/api/increasePostView/${slug}`;
 
-      const res = await fetch(url, {
-        // cache: "no-store", // Important for dynamic content
-        headers: { "x-api-key": process.env.API_SECRET_KEY! },
-      });
+      // Fetch post data and increment views concurrently
+      const [postResponse, viewResponse] = await Promise.all([
+        fetch(postUrl, {
+          headers: { "x-api-key": process.env.API_SECRET_KEY! },
+        }),
+        fetch(viewUrl, {
+          method: "PATCH",
+          headers: { "x-api-key": process.env.API_SECRET_KEY! },
+        }),
+      ]);
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        const errorMessage = `Failed to fetch post: ${res.status} - ${
-          errorText || res.statusText
+      if (!postResponse.ok) {
+        const errorText = await postResponse.text();
+        const errorMessage = `Failed to fetch post: ${postResponse.status} - ${
+          errorText || postResponse.statusText
         }`;
         console.error(errorMessage);
 
-        if (res.status === 404) {
-          // Specifically handle 404
-          console.warn("Post not found.");
+        if (postResponse.status === 404) {
           return null;
         }
 
         throw new Error(errorMessage);
       }
 
-      return res.json() as Promise<PostWithCategoriesAndUserEssence>;
+      // Check view response, but don't prevent post display if it fails
+      if (!viewResponse.ok) {
+        console.error(
+          `Failed to increase view count: ${
+            viewResponse.status
+          } - ${await viewResponse.text()}`
+        );
+      }
+
+      return postResponse.json() as Promise<PostWithCategoriesAndUserEssence>;
     } catch (error: any) {
       if (
         error instanceof Error &&

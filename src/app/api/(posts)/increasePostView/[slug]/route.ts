@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { authorizeWithSecret } from "@/lib/authorizeWithSecret";
 
-// get a post by slug
-export const GET = async (
+// increase post view count by slug
+export const PATCH = async (
   req: NextRequest,
   { params }: { params: { slug: string } }
 ): Promise<NextResponse> => {
@@ -14,20 +14,22 @@ export const GET = async (
   const slug = params.slug;
 
   try {
-    const post = await prisma.post.findUnique({
+    await prisma.post.update({
       where: { slug },
-      include: { categories: true, user: true },
+      data: { views: { increment: 1 } },
     });
 
-    return new NextResponse(JSON.stringify(post), { status: 200 });
+    return new NextResponse(null, { status: 204 }); // 204 No Content
   } catch (error) {
+    console.log("viewcount error", error);
+
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2025"
     ) {
       return new NextResponse("Post not found", { status: 404 });
     }
-    console.error(error);
+
     return new NextResponse("Something went wrong!!", { status: 500 });
   }
 };
