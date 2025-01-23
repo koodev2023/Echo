@@ -37,6 +37,12 @@ const Card = ({
 
   return (
     <Link
+      // onClick={(e) => {
+      //   if (post.isPublished) {
+      //     e.stopPropagation();
+      //     pushToEditOrDisplay();
+      //   }
+      // }}
       href={url}
       className={`w-full flex flex-row gap-5 md:gap-8 items-center justify-center py-5 first:pt-0 ${
         post.isPublished ? "hover:cursor-pointer" : ""
