@@ -60,9 +60,9 @@ const ProfileButton = () => {
             <DropdownMenuItem asChild>
               <Link href={`/@${session.data?.user.username}`}>Profile</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
+            {/* <DropdownMenuItem asChild>
               <Link href="/me/library">Library</Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem asChild>
               <Link href="/me/stories/drafts">Stories</Link>
             </DropdownMenuItem>
