@@ -1,0 +1,317 @@
+@import "highlight.js/styles/atom-one-dark.css";
+@import "react-quill-new/dist/quill.bubble.css";
+@import "react-quill-new/dist/quill.snow.css";
+@import "katex/dist/katex.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 95%;
+    /* Slightly off-white for better readability */
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+/* ==========================================================================
+   Rich Text Quill Editor Style For Editing
+   ========================================================================== */
+
+.ql-container {
+  @apply text-lg !important;
+}
+
+.quill>.ql-container>.ql-editor.ql-blank::before {
+  @apply text-muted-foreground not-italic leading-loose px-2 m-0 left-0 !important
+  /* left: 0 !important; */
+  /* right: 0 !important; */
+  ;
+}
+
+.ql-formats {
+  @apply mr-0 !important;
+}
+
+iframe.ql-video {
+  @apply w-full aspect-video max-w-xl shadow-lg;
+}
+
+button.ql-code-block {
+  @apply scale-[0.65] p-0 w-min rounded-[2px] ring-2 ring-gray-600 dark:ring-gray-400 hover:ring-2 hover:ring-current dark:hover:ring-current !important;
+}
+
+button.ql-code-block.ql-active {
+  @apply scale-[0.65] p-0 w-min rounded-[2px] ring-2 ring-current dark:ring-gray-400 hover:ring-2 hover:ring-current dark:hover:ring-current !important;
+}
+
+.quill>* {
+  border-color: inherit !important;
+  color: inherit !important;
+  width: 100% !important;
+}
+
+.quill>.ql-container {
+  font-size: inherit;
+  border-radius: 0 0 10px 10px;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label {
+  color: inherit !important;
+  opacity: 0.76;
+}
+
+.ql-toolbar.ql-snow {
+  @apply rounded-xl !important;
+}
+
+.ql-snow .ql-picker {
+  color: inherit !important;
+}
+
+.ql-snow.ql-toolbar button svg {
+  opacity: 0.76;
+  color: currentColor;
+}
+
+.ql-snow .ql-stroke {
+  stroke: currentColor !important;
+}
+
+.ql-snow .ql-fill {
+  fill: currentColor !important;
+}
+
+.ql-picker-item {
+  color: #444 !important;
+}
+
+code {
+  @apply text-foreground dark:text-background !important;
+}
+
+.ql-code-block-container {
+  @apply relative;
+}
+
+.ql-code-block-container .ql-ui {
+  @apply text-sm text-foreground bg-background absolute top-0 right-0 opacity-80 rounded-bl-[3px];
+}
+
+div.ql-code-block {
+  @apply text-sm break-all;
+}
+
+.ql-tooltip.ql-editing input {
+  @apply dark:bg-foreground dark:text-background outline-none rounded-md;
+}
+
+.ql-tooltip.ql-editing.ql-flip {
+  @apply z-20;
+}
+
+.ql-tooltip {
+  @apply rounded-lg text-sm;
+}
+
+hr {
+  @apply my-3;
+}
+
+.my-textarea {
+  @apply resize-none overflow-hidden min-h-0 !important;
+}
+
+.ql-editor img {
+  /* @apply rounded-[10px] mx-auto */
+  @apply rounded-[10px] w-full mx-auto my-1.5;
+}
+
+.ql-editor p {
+  /* @apply rounded-[10px] mx-auto */
+  @apply leading-loose !important;
+}
+
+.quill>.ql-toolbar {
+  @apply sticky top-0 z-10 bg-background !important
+  /* @apply sticky top-0 rounded-t-[10px] z-10 bg-background !important */
+  /* @apply sticky top-0 rounded-[10px] z-10 bg-background h-min !important */
+  ;
+}
+
+.editor-page {
+  /* @apply flex flex-col justify-start mx-auto gap-2 max-w-3xl w-full h-full max-h-[83%] !important; */
+  @apply flex flex-col justify-start mx-auto gap-2 max-w-3xl w-full h-full max-h-full !important;
+}
+
+.quill {
+  /* @apply flex flex-col justify-start items-start w-full h-full max-h-[83%] !important; */
+  @apply flex flex-col justify-start items-start w-full h-max !important;
+}
+
+.ql-container {
+  @apply h-full max-h-full !important;
+}
+
+.ql-container.ql-snow {
+  /* @apply max-h-[90%] !important; */
+  @apply rounded-none border-none max-h-full !important;
+}
+
+.ql-editor {
+  /* @apply min-h-40 sm:min-h-60 md:min-h-80 */
+  @apply h-full max-h-full overflow-visible px-2 py-3 !important;
+
+  ul,
+  ol {
+    @apply pl-0 list-none;
+  }
+}
+
+/* ==========================================================================
+   Later added by ai
+   ========================================================================== */
+
+/* Text Styles */
+.ql-editor {
+  padding: 1rem;
+  line-height: 1.6;
+  /* Improve readability */
+}
+
+.ql-editor h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+.ql-editor h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.ql-editor p {
+  margin-bottom: 1em;
+}
+
+.ql-editor code {
+  /* Inline code */
+  background-color: #f5f5f5;
+  /* Or your preferred background */
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: monospace;
+  /* Use a monospace font */
+}
+
+
+/* Code Block Styles */
+.ql-code-block-container {
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 1em;
+  margin-bottom: 1em;
+  /* Add margin below code blocks */
+  overflow-x: auto;
+  /* Allow horizontal scrolling for long lines */
+}
+
+.ql-code-block {
+  font-family: monospace;
+  white-space: pre-wrap;
+  /* Preserve whitespace and allow wrapping */
+  font-size: 0.9em;
+  /* Slightly smaller font size for code */
+  color: #333;
+}
+
+.ql-editor blockquote {
+  display: flow-root;
+  /* Establishes a new block formatting context */
+  padding-left: 10px;
+  /* Adjust for spacing from the bar */
+  margin-left: 0;
+  margin-bottom: 0.5em;
+  color: var(--foreground);
+  font-style: italic;
+  /* Optional italic style */
+}
+
+.ql-editor blockquote::before {
+  content: "";
+  display: inline-block;
+  /* Makes the bar an inline element */
+  width: 4px;
+  /* Width of the bar */
+  height: 1.5em;
+  /* Height of the bar */
+  background-color: #ccc;
+  /* Light gray or var(--blockquote-bar-color) */
+  vertical-align: top;
+  /* Aligns the bar to the top of the text */
+  margin-right: 10px;
+  /* Space between the bar and text */
+}
