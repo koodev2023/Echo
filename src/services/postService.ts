@@ -2,7 +2,6 @@ import {
   GetPostsResponse,
   PostWithCategoriesAndUserEssence,
 } from "@/types/customTypes";
-import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { cache } from "react";
 
@@ -27,7 +26,7 @@ export const getPosts = cache(
       url.searchParams.set("isPublished", isPublished.toString());
 
       const res = await fetch(url, {
-        cache: "no-store",
+        // cache: "no-store",
         headers: { "x-api-key": process.env.API_SECRET_KEY! },
       });
 
@@ -62,7 +61,7 @@ export const getPostBySlug = cache(
       const url = new URL(`/api/getPosts/${slug}`, process.env.NEXTAUTH_URL);
 
       const res = await fetch(url, {
-        cache: "no-store", // Important for dynamic content
+        // cache: "no-store", // Important for dynamic content
         headers: { "x-api-key": process.env.API_SECRET_KEY! },
       });
 
@@ -111,7 +110,7 @@ export const getPostById = cache(
 
       const res = await fetch(url, {
         method: "GET",
-        cache: "no-store",
+        // cache: "no-store",
         headers: myHeaders,
         // headers: { "x-api-key": process.env.API_SECRET_KEY! },
       });

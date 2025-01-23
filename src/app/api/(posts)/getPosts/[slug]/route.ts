@@ -2,7 +2,6 @@ import prisma from "@/db/connect";
 import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { authorizeWithSecret } from "@/lib/authorizeWithSecret";
-import { revalidatePath } from "next/cache";
 
 // get a post by slug
 export const GET = async (
