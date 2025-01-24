@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
-import prisma from "@/db/connect";
-import { authorizeWithSecret } from "@/lib/authorizeWithSecret";
+import prisma from "@/lib/db/connect";
+import { authorizeWithSecret } from "@/lib/utils/authorizeWithSecret";
 import { NextRequest, NextResponse } from "next/server";
 
 // get a post by id

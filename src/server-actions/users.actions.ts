@@ -1,6 +1,6 @@
 "use server";
 
-import prisma from "@/db/connect";
+import prisma from "@/lib/db/connect";
 import { NextResponse } from "next/server";
 
 export async function checkAndUpdateUsername(id: string) {

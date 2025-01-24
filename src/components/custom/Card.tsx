@@ -5,10 +5,10 @@ import {
   CardMode,
   PostWithCategoriesAndUserEssenceAndCommentCount,
 } from "@/types/customTypes";
-import getPlainTextWithNewlines from "@/lib/plainText";
+import getPlainTextWithNewlines from "@/lib/utils/plainText";
 import UserIconWithName from "./UserIconWithName";
 import CardDateViewCommentCount from "./CardDateViewCommentCount";
-import formatDate from "@/lib/date";
+import formatDate from "@/lib/utils/date";
 import placeholderImage from "@/public/image-placeholder-grey.png";
 import { useRouter } from "next/navigation";
 import CardDropdownMenu from "./CardDropdownMenu";
@@ -37,12 +37,6 @@ const Card = ({
 
   return (
     <Link
-      // onClick={(e) => {
-      //   if (post.isPublished) {
-      //     e.stopPropagation();
-      //     pushToEditOrDisplay();
-      //   }
-      // }}
       href={url}
       className={`w-full flex flex-row gap-5 md:gap-8 items-center justify-center py-5 first:pt-0 ${
         post.isPublished ? "hover:cursor-pointer" : ""

@@ -1,7 +1,7 @@
-import prisma from "@/db/connect";
+import prisma from "@/lib/db/connect";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { authorizeWithSecret } from "@/lib/authorizeWithSecret";
+import { authorizeWithSecret } from "@/lib/utils/authorizeWithSecret";
 
 export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);

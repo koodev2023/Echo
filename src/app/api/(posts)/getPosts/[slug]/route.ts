@@ -1,7 +1,7 @@
-import prisma from "@/db/connect";
+import prisma from "@/lib/db/connect";
 import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
-import { authorizeWithSecret } from "@/lib/authorizeWithSecret";
+import { authorizeWithSecret } from "@/lib/utils/authorizeWithSecret";
 
 // get a post by slug
 export const GET = async (

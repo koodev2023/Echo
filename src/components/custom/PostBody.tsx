@@ -1,15 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import PostFooterCategory from "./PostFooterCategory";
 import DOMPurify from "isomorphic-dompurify";
+import { incrementPostView } from "@/server-actions/posts.actions";
+import usePostViewIncrement from "@/lib/hooks/userPostViewIncrement";
 
 const PostBody = ({
+  slug,
   desc,
   categories,
 }: {
+  slug: string;
   desc: string;
   categories: string[];
 }) => {
+  const hasViewed = usePostViewIncrement(slug); // Use the custom hook
+
   // console.log("desc", desc);
 
   const createDomainRegex = (domains: any[], path = "") => {
@@ -48,6 +55,7 @@ const PostBody = ({
           className="flex flex-col min-h-40 break-words"
           dangerouslySetInnerHTML={{ __html: cleanedDesc }}
         />
+        {hasViewed && <p>Viewed</p>} {/* just for demo purpose */}
       </div>
 
       <PostFooterCategory categories={categories} />

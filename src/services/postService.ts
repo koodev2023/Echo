@@ -13,20 +13,20 @@ export const getPosts = cache(
     isPublished,
   }: {
     page: number;
-    cat?: string; // Optional parameter
-    username?: string; // Optional parameter
+    cat?: string;
+    username?: string;
     isPublished: boolean;
   }): Promise<GetPostsResponse> => {
     try {
       const url = new URL(`/api/getPosts`, process.env.NEXTAUTH_URL);
 
-      url.searchParams.set("page", page.toString()); // Cleaner way to add params
+      url.searchParams.set("page", page.toString());
       if (cat) url.searchParams.set("cat", cat);
       if (username) url.searchParams.set("username", username);
       url.searchParams.set("isPublished", isPublished.toString());
 
       const res = await fetch(url, {
-        // cache: "no-store",
+        cache: "no-store",
         headers: { "x-api-key": process.env.API_SECRET_KEY! },
       });
 
@@ -58,44 +58,29 @@ export const getPosts = cache(
 export const getPostBySlug = cache(
   async (slug: string): Promise<PostWithCategoriesAndUserEssence | null> => {
     try {
-      const postUrl = `${process.env.NEXTAUTH_URL}/api/getPosts/${slug}`;
-      const viewUrl = `${process.env.NEXTAUTH_URL}/api/increasePostView/${slug}`;
+      const url = new URL(`/api/getPosts/${slug}`, process.env.NEXTAUTH_URL);
 
-      // Fetch post data and increment views concurrently
-      const [postResponse, viewResponse] = await Promise.all([
-        fetch(postUrl, {
-          headers: { "x-api-key": process.env.API_SECRET_KEY! },
-        }),
-        fetch(viewUrl, {
-          method: "PATCH",
-          headers: { "x-api-key": process.env.API_SECRET_KEY! },
-        }),
-      ]);
+      const res = await fetch(url, {
+        // cache: "no-store",
+        headers: { "x-api-key": process.env.API_SECRET_KEY! },
+      });
 
-      if (!postResponse.ok) {
-        const errorText = await postResponse.text();
-        const errorMessage = `Failed to fetch post: ${postResponse.status} - ${
-          errorText || postResponse.statusText
+      if (!res.ok) {
+        const errorText = await res.text();
+        const errorMessage = `Failed to fetch post: ${res.status} - ${
+          errorText || res.statusText
         }`;
         console.error(errorMessage);
 
-        if (postResponse.status === 404) {
+        if (res.status === 404) {
+          console.warn("Post not found.");
           return null;
         }
 
         throw new Error(errorMessage);
       }
 
-      // Check view response, but don't prevent post display if it fails
-      if (!viewResponse.ok) {
-        console.error(
-          `Failed to increase view count: ${
-            viewResponse.status
-          } - ${await viewResponse.text()}`
-        );
-      }
-
-      return postResponse.json() as Promise<PostWithCategoriesAndUserEssence>;
+      return res.json() as Promise<PostWithCategoriesAndUserEssence>;
     } catch (error: any) {
       if (
         error instanceof Error &&
@@ -111,8 +96,6 @@ export const getPostBySlug = cache(
   }
 );
 
-// http://localhost:3000/posts/679103e067b30f7f11dd4145/edit
-
 // get a post by id
 export const getPostById = cache(
   async (id: string): Promise<PostWithCategoriesAndUserEssence | null> => {
@@ -124,9 +107,8 @@ export const getPostById = cache(
 
       const res = await fetch(url, {
         method: "GET",
-        // cache: "no-store",
+        cache: "no-store",
         headers: myHeaders,
-        // headers: { "x-api-key": process.env.API_SECRET_KEY! },
       });
 
       if (!res.ok) {

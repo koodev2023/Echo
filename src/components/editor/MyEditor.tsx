@@ -10,16 +10,16 @@ import { PostWithCategoriesAndUserEssence } from "@/types/customTypes";
 import { useDebouncedCallback } from "use-debounce";
 import TitlePlusEditorSkeletion from "./TitlePlusEditorSkeletion";
 import { PostCoverImagePicker } from "../custom/PostCoverImagePicker";
-import extractImageUrls from "@/lib/extractImageUrls";
+import extractImageUrls from "@/lib/utils/extractImageUrls";
 import ReactQuill from "react-quill-new";
-import { waitForSeconds } from "@/lib/waitForSeconds";
+import { waitForSeconds } from "@/lib/utils/waitForSeconds";
 import { Input } from "../ui/input";
-import { replaceNonCloudinaryWithCloudinary } from "@/lib/replaceNonCloudinaryWithCloudinary";
-import { getNonCloudinaryImageUrlsFromDesc } from "@/lib/getNonCloudinaryImageUrlsFromDesc";
+import { replaceNonCloudinaryWithCloudinary } from "@/lib/utils/replaceNonCloudinaryWithCloudinary";
+import { getNonCloudinaryImageUrlsFromDesc } from "@/lib/utils/getNonCloudinaryImageUrlsFromDesc";
 import { handlePostMutation } from "@/lib/mutations/handlePostMutation";
 import EditorNavBar from "../custom/EditorNavBar";
 import { Skeleton } from "../ui/skeleton";
-import { trimExcessWhitespace } from "@/lib/trimExcessHtmlWhitespace";
+import { trimExcessWhitespace } from "@/lib/utils/trimExcessHtmlWhitespace";
 
 const MyEditor = ({
   editorType,

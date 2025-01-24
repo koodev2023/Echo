@@ -1,6 +1,6 @@
 import { POST_PER_PAGE } from "@/constants/postConfig";
-import prisma from "@/db/connect";
-import { authorizeWithSecret } from "@/lib/authorizeWithSecret";
+import prisma from "@/lib/db/connect";
+import { authorizeWithSecret } from "@/lib/utils/authorizeWithSecret";
 import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 

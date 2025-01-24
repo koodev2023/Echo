@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import { CommentWithUser } from "@/types/customTypes";
 import { useState } from "react";
-import fetcher from "@/lib/fetcher";
+import fetcher from "@/lib/utils/fetcher";
 import { Textarea } from "../ui/textarea";
 
 const Comments = ({ postSlug }: { postSlug: string }) => {

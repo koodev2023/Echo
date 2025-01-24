@@ -1,5 +1,5 @@
-import prisma from "@/db/connect";
-import { checkAndUpdateUsername } from "@/lib/user.actions";
+import prisma from "@/lib/db/connect";
+import { checkAndUpdateUsername } from "@/server-actions/users.actions";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";

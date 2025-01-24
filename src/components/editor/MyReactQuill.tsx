@@ -10,7 +10,7 @@ import hljs from "highlight.js";
 
 import katex from "katex";
 import ImageUploader from "../uploader/ImageUploader";
-import myIcons from "@/lib/icons";
+import myIcons from "@/data/icons";
 import myToolBar from "@/constants/myToolBar";
 if (typeof window !== "undefined") window.katex = katex;
 

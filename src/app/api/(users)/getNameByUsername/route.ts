@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 
-import prisma from "@/db/connect";
+import prisma from "@/lib/db/connect";
 import { NextRequest, NextResponse } from "next/server";
 
 // get name by username

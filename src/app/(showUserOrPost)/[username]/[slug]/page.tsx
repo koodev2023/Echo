@@ -1,7 +1,7 @@
 import Comments from "@/components/custom/Comments";
 import PostBanner from "@/components/custom/PostBanner";
 import PostBody from "@/components/custom/PostBody";
-import formatDate from "@/lib/date";
+import formatDate from "@/lib/utils/date";
 import DOMPurify from "isomorphic-dompurify";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
@@ -99,6 +99,7 @@ export default async function Page({
       <div className="flex flex-col gap-1 sm:gap-3">
         <div className="whitespace-pre-line flex flex-col gap-3">
           <PostBody
+            slug={slug}
             desc={post.desc}
             categories={post.categories.map((c) => c.title)}
           />

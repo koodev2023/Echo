@@ -1,6 +1,6 @@
 import React from "react";
 import UserIcon from "./UserIcon";
-import formatDate from "@/lib/date";
+import formatDate from "@/lib/utils/date";
 
 const CommentSingle = ({
   userImageUrl,

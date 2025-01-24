@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
-import prisma from "@/db/connect";
-import { generateUniqueSlug } from "@/lib/slugService";
+import prisma from "@/lib/db/connect";
+import { generateUniqueSlug } from "@/lib/utils/generateUniqueSlug";
 import { Post } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 

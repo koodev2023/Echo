@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
-import { authorizeWithSecret } from "./lib/authorizeWithSecret";
+import { authorizeWithSecret } from "./lib/utils/authorizeWithSecret";
 
 const API_SECRET_KEY = process.env.API_SECRET_KEY;
 if (!API_SECRET_KEY) {
@@ -70,7 +70,6 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // for those route no need authentication, but only my frontend could use
   if (path.startsWith("/api/")) {
     const authorizationError = authorizeWithSecret(req);
     if (authorizationError) return authorizationError;
