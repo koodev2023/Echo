@@ -10,9 +10,8 @@ import UserIconWithName from "./UserIconWithName";
 import CardDateViewCommentCount from "./CardDateViewCommentCount";
 import formatDate from "@/lib/utils/date";
 import placeholderImage from "@/public/image-placeholder-grey.png";
-import { useRouter } from "next/navigation";
 import CardDropdownMenu from "./CardDropdownMenu";
-import Link from "next/link";
+import { useRouter } from "nextjs-toploader/app";
 
 const Card = ({
   mode,
@@ -23,8 +22,8 @@ const Card = ({
 }) => {
   const plainText = getPlainTextWithNewlines(post.desc, 300);
   const blurDataURL = (placeholderImage as StaticImageData).src;
-
   const router = useRouter();
+
   const url = post.isPublished
     ? `/@${post.user.username}/${post.slug}`
     : `/posts/${post.id}/edit`;
@@ -36,8 +35,8 @@ const Card = ({
   const isDashboardView = mode === "DASHBOARD";
 
   return (
-    <Link
-      href={url}
+    <div
+      onClick={() => pushToEditOrDisplay()}
       className={`w-full flex flex-row gap-5 md:gap-8 items-center justify-center py-5 first:pt-0 ${
         post.isPublished ? "hover:cursor-pointer" : ""
       }`}
@@ -102,7 +101,7 @@ const Card = ({
           />
         </div>
       )}
-    </Link>
+    </div>
   );
 };
 

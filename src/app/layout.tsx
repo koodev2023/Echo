@@ -7,6 +7,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SessionProvider } from "next-auth/react";
 import Provider from "@/providers/Provider";
+import NextTopLoader from "nextjs-toploader";
+
 // import { SessionProvider } from "next-auth/react";
 
 const roboto = Roboto({
@@ -44,6 +46,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <Provider>
+              <NextTopLoader />
               {/* h-max enable sticky header */}
               <div className="flex flex-col gap-0 h-max justify-start items-center">
                 <NavBar />
