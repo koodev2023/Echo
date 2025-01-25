@@ -65,7 +65,7 @@ const CardList = async ({
 
   return (
     <div className="flex flex-col gap-3">
-      <h1 className="w-full flex text-2xl font-bold mb-4">
+      <h1 className="w-full flex max-sm:text-3xl text-5xl font-medium mb-4">
         {type === "HOME" ? "Recent Posts" : type === "PROFILE" ? name : null}
       </h1>
 
