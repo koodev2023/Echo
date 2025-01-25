@@ -37,13 +37,34 @@ const PostLoading = () => {
         <Skeleton className="rounded h-5 w-full my-2" />
       </div>
 
-      {/* Too many paragraph skeletons produce unwanted scroll */}
-      {/* <div>
-      <Skeleton className="rounded h-5 w-full my-2" />
-      <Skeleton className="rounded h-5 w-full my-2" />
-      <Skeleton className="rounded h-5 w-full my-2" />
-      <Skeleton className="rounded h-5 w-full my-2" />
-    </div> */}
+      {/* Paragraph skeletons of similar page length will produce unwanted scrolling */}
+      <div>
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+      </div>
+
+      <div>
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+      </div>
+
+      <div>
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+      </div>
+
+      <div>
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+        <Skeleton className="rounded h-5 w-full my-2" />
+      </div>
     </div>
   );
 };
