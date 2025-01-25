@@ -24,7 +24,7 @@ export default async function Home({
         {/* <CategoryList /> */}
 
         <div className="flex flex-col gap-1 sm:gap-3">
-          <p className="text-3xl font-semibold">
+          <p className="max-sm:text-3xl text-5xl font-medium">
             Welcome {session?.user.name}!
           </p>
 
