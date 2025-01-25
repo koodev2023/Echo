@@ -12,6 +12,7 @@ import formatDate from "@/lib/utils/date";
 import placeholderImage from "@/public/image-placeholder-grey.png";
 import CardDropdownMenu from "./CardDropdownMenu";
 import { useRouter } from "nextjs-toploader/app";
+import Link from "next/link";
 
 const Card = ({
   mode,
@@ -35,8 +36,9 @@ const Card = ({
   const isDashboardView = mode === "DASHBOARD";
 
   return (
-    <div
-      onClick={() => pushToEditOrDisplay()}
+    <Link
+      href={url}
+      // onClick={() => pushToEditOrDisplay()}
       className={`w-full flex flex-row gap-5 md:gap-8 items-center justify-center py-5 first:pt-0 ${
         post.isPublished ? "hover:cursor-pointer" : ""
       }`}
@@ -101,7 +103,7 @@ const Card = ({
           />
         </div>
       )}
-    </div>
+    </Link>
   );
 };
 
