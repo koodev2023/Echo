@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="flex flex-col gap-2 sm:gap-5 md:gap-8 w-full">
+    <div className="flex flex-col gap-2 sm:gap-5 md:gap-8 w-full h-full">
       <div>
         {/* Big Title */}
         <Skeleton className="rounded h-10 w-full my-4" />
@@ -36,12 +36,13 @@ export default function Loading() {
         <Skeleton className="rounded h-5 w-full my-2" />
       </div>
 
-      <div>
+      {/* Too many paragraph skeletons produce unwanted scroll */}
+      {/* <div>
         <Skeleton className="rounded h-5 w-full my-2" />
         <Skeleton className="rounded h-5 w-full my-2" />
         <Skeleton className="rounded h-5 w-full my-2" />
         <Skeleton className="rounded h-5 w-full my-2" />
-      </div>
+      </div> */}
     </div>
   );
 }

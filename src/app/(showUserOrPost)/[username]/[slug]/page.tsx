@@ -27,6 +27,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { JSDOM } = jsdom;
   const { slug } = params;
+
   const post = await getPostBySlug(slug);
 
   // console.log("generateMetadata got the post");
@@ -74,7 +75,13 @@ export default async function Page({
   const { slug, username } = params;
   const decodedUsername = decodeURIComponent(username);
 
-  const post = await getPostBySlug(slug);
+  // const post = await getPostBySlug(slug);
+
+  const timeout = new Promise((resolve) => setTimeout(resolve, 500));
+  const post = await Promise.all([getPostBySlug(slug), timeout]).then(
+    (values) => values[0]
+  );
+
   if (!post) notFound();
 
   // console.log("post.user.username?", post.user.username);

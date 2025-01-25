@@ -46,7 +46,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <Provider>
-              <NextTopLoader />
+              {/* <NextTopLoader /> */}
               {/* h-max enable sticky header */}
               <div className="flex flex-col gap-0 h-max justify-start items-center">
                 <NavBar />
