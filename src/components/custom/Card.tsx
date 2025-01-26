@@ -10,7 +10,7 @@ import UserIconWithName from "./UserIconWithName";
 import CardDateViewCommentCount from "./CardDateViewCommentCount";
 import formatDate from "@/lib/utils/date";
 import placeholderImage from "@/public/image-placeholder-grey.png";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import CardDropdownMenu from "./CardDropdownMenu";
 import Link from "next/link";
 
