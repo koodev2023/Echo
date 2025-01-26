@@ -5,55 +5,53 @@ import {
 import { headers } from "next/headers";
 import { cache } from "react";
 
-export const getPosts = cache(
-  async ({
-    page,
-    cat,
-    username,
-    isPublished,
-  }: {
-    page: number;
-    cat?: string;
-    username?: string;
-    isPublished: boolean;
-  }): Promise<GetPostsResponse> => {
-    try {
-      const url = new URL(`/api/getPosts`, process.env.NEXTAUTH_URL);
+export const getPosts = async ({
+  page,
+  cat,
+  username,
+  isPublished,
+}: {
+  page?: number;
+  cat?: string;
+  username?: string;
+  isPublished: boolean;
+}): Promise<GetPostsResponse> => {
+  try {
+    const url = new URL(`/api/getPosts`, process.env.NEXTAUTH_URL);
 
-      url.searchParams.set("page", page.toString());
-      if (cat) url.searchParams.set("cat", cat);
-      if (username) url.searchParams.set("username", username);
-      url.searchParams.set("isPublished", isPublished.toString());
+    if (page) url.searchParams.set("page", page.toString());
+    if (cat) url.searchParams.set("cat", cat);
+    if (username) url.searchParams.set("username", username);
+    url.searchParams.set("isPublished", isPublished.toString());
 
-      const res = await fetch(url, {
-        cache: "no-store",
-        headers: { "x-api-key": process.env.API_SECRET_KEY! },
-      });
+    const res = await fetch(url, {
+      cache: "no-store",
+      headers: { "x-api-key": process.env.API_SECRET_KEY! },
+    });
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        const errorMessage = `Failed to fetch posts: ${res.status} - ${
-          errorText || res.statusText
-        }`;
-        console.error(errorMessage);
-        throw new Error(errorMessage);
-      }
-
-      return res.json() as Promise<GetPostsResponse>;
-    } catch (error: any) {
-      if (
-        error instanceof Error &&
-        "digest" in error &&
-        error.digest === "DYNAMIC_SERVER_USAGE"
-      ) {
-        throw error;
-      }
-
-      console.error("Error fetching or parsing data:", error.message);
-      throw new Error("Failed to fetch or process data.");
+    if (!res.ok) {
+      const errorText = await res.text();
+      const errorMessage = `Failed to fetch posts: ${res.status} - ${
+        errorText || res.statusText
+      }`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
     }
+
+    return res.json() as Promise<GetPostsResponse>;
+  } catch (error: any) {
+    if (
+      error instanceof Error &&
+      "digest" in error &&
+      error.digest === "DYNAMIC_SERVER_USAGE"
+    ) {
+      throw error;
+    }
+
+    console.error("Error fetching or parsing data:", error.message);
+    throw new Error("Failed to fetch or process data.");
   }
-);
+};
 
 export const getPostBySlug = async (
   slug: string

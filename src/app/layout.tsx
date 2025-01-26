@@ -19,8 +19,8 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: {
-    default: "Echo | 軟件工程部落格",
-    template: "%s - Echo | 軟件工程部落格",
+    default: "Echo | 回音部落格",
+    template: "%s - Echo | 回音部落格",
   },
   description:
     "Welcome to Echo, your go-to source for insights and discussions on software engineering, development practices, and industry trends.",

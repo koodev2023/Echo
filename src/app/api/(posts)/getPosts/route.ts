@@ -11,7 +11,9 @@ export const GET = async (req: NextRequest) => {
 
   const { searchParams } = new URL(req.url);
 
-  const page = parseInt(searchParams.get("page") || "1"); // Default to page 1 if not provided
+  const pageParam = searchParams.get("page");
+  const page = pageParam ? parseInt(pageParam, 10) : undefined;
+
   const cat = searchParams.get("cat") || undefined; // Simplify cat retrieval
   const username = searchParams.get("username");
   const isPublished =
@@ -22,25 +24,29 @@ export const GET = async (req: NextRequest) => {
       : true;
 
   const where: Prisma.PostWhereInput = { isPublished };
-
   if (cat) where.categories = { some: { slug: cat } };
   if (username) where.user = { username };
 
+  const findManyOptions: Prisma.PostFindManyArgs = {
+    where,
+    include: {
+      _count: { select: { comments: true } },
+      categories: true,
+      user: {
+        select: { name: true, image: true, username: true },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  };
+
+  if (page) {
+    findManyOptions.take = POST_PER_PAGE;
+    findManyOptions.skip = (page - 1) * POST_PER_PAGE;
+  }
+
   try {
     const [posts, count] = await prisma.$transaction([
-      prisma.post.findMany({
-        take: POST_PER_PAGE,
-        skip: (page - 1) * POST_PER_PAGE,
-        where, // Use the simplified where clause
-        include: {
-          _count: { select: { comments: true } },
-          categories: true,
-          user: {
-            select: { name: true, image: true, username: true },
-          },
-        },
-        orderBy: { createdAt: "desc" },
-      }),
+      prisma.post.findMany(findManyOptions),
       prisma.post.count({ where }),
     ]);
 

@@ -6,7 +6,7 @@ import DOMPurify from "isomorphic-dompurify";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import jsdom from "jsdom";
-import { getPostBySlug } from "@/services/postService";
+import { getPostBySlug, getPosts } from "@/services/postService";
 
 const SEO_KEYWORDS = [
   "tech",
@@ -20,13 +20,23 @@ const SEO_KEYWORDS = [
   "latest trends",
 ];
 
+// export async function generateStaticParams() {
+//   const response = await getPosts({ isPublished: true });
+
+//   // Generate paths for each post
+//   return response.posts.map((post) => ({
+//     username: post.user.username.toString(),
+//     slug: post.slug!.toString(),
+//   }));
+// }
+
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { JSDOM } = jsdom;
-  const { slug } = params;
+  const { slug } = await params;
 
   const post = await getPostBySlug(slug);
 
@@ -70,9 +80,9 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: { slug: string; username: string };
+  params: Promise<{ slug: string; username: string }>;
 }) {
-  const { slug, username } = params;
+  const { slug, username } = await params;
   const decodedUsername = decodeURIComponent(username);
 
   // const post = await getPostBySlug(slug);
