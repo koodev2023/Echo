@@ -19,7 +19,6 @@ import { getNonCloudinaryImageUrlsFromDesc } from "@/lib/utils/getNonCloudinaryI
 import { handlePostMutation } from "@/lib/mutations/handlePostMutation";
 import EditorNavBar from "../custom/EditorNavBar";
 import { Skeleton } from "../ui/skeleton";
-import { trimExcessWhitespace } from "@/lib/utils/trimExcessHtmlWhitespace";
 
 const MyEditor = ({
   editorType,
@@ -101,7 +100,7 @@ const MyEditor = ({
         method: "POST",
         body: JSON.stringify({
           title: title.trim(),
-          desc: trimExcessWhitespace(desc),
+          desc: desc,
         }),
       });
       return response.json();
@@ -114,7 +113,7 @@ const MyEditor = ({
         method: "POST",
         body: JSON.stringify({
           title: title.trim(),
-          desc: trimExcessWhitespace(desc),
+          desc: desc,
           imgs: images,
         }),
       });
@@ -130,7 +129,7 @@ const MyEditor = ({
         method: "PATCH",
         body: JSON.stringify({
           title: title.trim(),
-          desc: trimExcessWhitespace(desc),
+          desc: desc,
           imgs: images,
           slug: slugger.slug(title),
         }),
@@ -357,7 +356,7 @@ const MyEditor = ({
       return;
     }
 
-    if (trimExcessWhitespace(desc) === "") {
+    if (desc === "") {
       alert("Missing body.");
       return;
     }
@@ -373,17 +372,13 @@ const MyEditor = ({
   return (
     <>
       <EditorNavBar>
-        {/* {isPublished && (
-          <Button
-            onClick={() => history.back()}
-            variant="ghost"
-            className="whitespace-normal break-words w-auto px-1 items-center justify-center leading-tight font-normal"
-          >
-            Back to
-            <br />
-            Story
-          </Button>
-        )} */}
+        {/* <button
+          onClick={() => {
+            console.log("testing desc:", desc);
+          }}
+        >
+          test
+        </button> */}
 
         <Button
           onClick={() => history.back()}

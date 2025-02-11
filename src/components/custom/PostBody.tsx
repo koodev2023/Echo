@@ -15,36 +15,26 @@ const PostBody = ({
 }) => {
   usePostViewIncrement(slug);
 
-  // console.log("desc", desc);
-
-  const createDomainRegex = (domains: any[], path = "") => {
-    const escapedDomains = domains.map((domain) => domain.replace(".", "\\."));
-    const domainPattern = escapedDomains.join("|");
-    return new RegExp(`^(https?:)?//(${domainPattern})/${path}`, "i");
-  };
-
-  const iframeSrcPattern = createDomainRegex(
-    ["www.youtube.com", "youtube.com"],
-    "embed/"
-  );
-  const imageSrcPattern = createDomainRegex(["res.cloudinary.com"]);
-
-  const combinedPattern = new RegExp(
-    `${iframeSrcPattern.source}|${imageSrcPattern.source}`,
-    "i"
-  );
+  console.log("desc", desc);
 
   const cleanedDesc = DOMPurify.sanitize(desc, {
-    ADD_TAGS: ["iframe", "img"],
-    ADD_ATTR: ["src", "frameborder", "allowfullscreen", "class", "style"],
+    ADD_TAGS: ["iframe", "img", "a"],
+    ADD_ATTR: [
+      "src",
+      "frameborder",
+      "allowfullscreen",
+      "class",
+      "style",
+      "href",
+      "target",
+      "rel",
+    ],
     ALLOWED_ATTR: ["data-list"],
     FORBID_TAGS: ["script"],
-    FORCE_BODY: true,
-    ALLOWED_URI_REGEXP: combinedPattern,
     KEEP_CONTENT: true,
   });
 
-  // console.log("cleanedDesc:", cleanedDesc);
+  console.log("cleanedDesc:", cleanedDesc);
 
   return (
     <>

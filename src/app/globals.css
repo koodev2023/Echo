@@ -196,6 +196,10 @@ hr {
   @apply leading-loose !important;
 }
 
+.ql-editor a {
+  @apply text-blue-600 underline decoration-1 decoration-blue-600/30 underline-offset-2 transition-all hover:text-blue-700 hover:decoration-2 hover:decoration-blue-600/70;
+}
+
 .quill>.ql-toolbar {
   @apply sticky top-0 z-10 bg-background !important
   /* @apply sticky top-0 rounded-t-[10px] z-10 bg-background !important */

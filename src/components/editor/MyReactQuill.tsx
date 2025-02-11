@@ -110,18 +110,16 @@ const MyReactQuill = ({
     const range = quill.getSelection(true);
     const value = prompt("Enter YouTube video URL:");
 
-    // Regular expression to match YouTube video URLs
     const urlRegex =
-      /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/).+$/;
+      /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})(.*)?$/;
 
-    // Check if the URL is a valid YouTube link
     if (value && urlRegex.test(value)) {
-      // Convert to embed URL if necessary
-      const embedUrl = value.replace("watch?v=", "embed/");
+      const match = value.match(urlRegex);
+      const videoId = match![4];
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
 
       // Insert the video only if the URL is valid
       quill.editor.insertEmbed(range.index, "video", embedUrl);
-
       quill.insertText(range.index + 1, "\n", ReactQuill.Quill.sources.USER);
     } else {
       alert("Invalid YouTube URL. Please enter a valid YouTube video link.");

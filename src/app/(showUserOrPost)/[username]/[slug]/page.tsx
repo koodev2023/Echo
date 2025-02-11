@@ -20,6 +20,7 @@ const SEO_KEYWORDS = [
   "latest trends",
 ];
 
+// TODO: fix generateStaticParams
 // export async function generateStaticParams() {
 //   const response = await getPosts({ isPublished: true });
 
